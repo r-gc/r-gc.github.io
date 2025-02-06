@@ -4,7 +4,7 @@ layout:     post
 title:      "Git 代理配置"  
 subtitle:   "如何在 Windows 和 Linux 上配置 Git 代理"  
 date:       2025-02-06 12:00:00  
-author:     "rgc"  
+author:     "rgc318"  
 header-img: "img/git-proxy-bg.jpg"  
 catalog: true  
 tags:  
