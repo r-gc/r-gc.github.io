@@ -1,33 +1,80 @@
 ---
 import MainGridLayout from "@layouts/MainGridLayout.astro";
+import { projects } from "../data/projects";
+
+const featuredProjects = projects.filter((project) => project.featured);
+const otherProjects = projects.filter((project) => !project.featured);
 ---
 
 <MainGridLayout title="项目" description="项目展示、复盘和技术实践。">
-    <section class="card-base px-9 py-8">
+    <section class="card-base px-9 py-8 mb-4">
         <div class="mb-8">
             <div class="text-sm font-bold text-[var(--primary)] mb-2">Projects</div>
             <h1 class="text-3xl font-bold mb-3">项目</h1>
             <p class="text-black/65 dark:text-white/65 leading-7">
-                这里会整理我做过的系统、工具、课程项目和开源实践。后续每个项目都会补充技术栈、截图、代码链接和复盘记录。
+                这里整理系统、工具、AI 应用、课程项目和工程实践。每个项目会逐步补充技术栈、截图、代码链接、部署地址和复盘记录。
             </p>
         </div>
 
-        <div class="grid gap-4 md:grid-cols-2">
-            <article class="rounded-2xl border border-black/10 dark:border-white/10 p-5 bg-black/[0.02] dark:bg-white/[0.03]">
-                <div class="text-xs font-bold text-[var(--primary)] mb-2">Web System</div>
-                <h2 class="text-xl font-bold mb-2">待补充项目</h2>
-                <p class="text-sm text-black/60 dark:text-white/60 leading-6">
-                    可以放毕业设计、管理系统、全栈项目、部署实践或自动化工具。
-                </p>
-            </article>
+        <div class="grid gap-4">
+            {featuredProjects.map((project) => (
+                <article class="rounded-2xl border border-black/10 dark:border-white/10 p-5 bg-black/[0.02] dark:bg-white/[0.03]">
+                    <div class="flex flex-col gap-3 md:flex-row md:items-start md:justify-between mb-3">
+                        <div>
+                            <div class="text-xs font-bold text-[var(--primary)] mb-2">{project.status}</div>
+                            <h2 class="text-2xl font-bold mb-2">{project.title}</h2>
+                            <p class="text-black/65 dark:text-white/65 leading-7">{project.summary}</p>
+                        </div>
+                        <div class="flex gap-2 shrink-0">
+                            {project.repoUrl && (
+                                <a class="btn-plain rounded-lg px-3 py-2 text-sm font-bold" href={project.repoUrl} target="_blank">代码</a>
+                            )}
+                            {project.demoUrl && (
+                                <a class="btn-plain rounded-lg px-3 py-2 text-sm font-bold" href={project.demoUrl} target="_blank">演示</a>
+                            )}
+                        </div>
+                    </div>
 
-            <article class="rounded-2xl border border-black/10 dark:border-white/10 p-5 bg-black/[0.02] dark:bg-white/[0.03]">
-                <div class="text-xs font-bold text-[var(--primary)] mb-2">Open Source</div>
-                <h2 class="text-xl font-bold mb-2">开源与工具</h2>
-                <p class="text-sm text-black/60 dark:text-white/60 leading-6">
-                    这里适合记录脚本、小工具、组件库、插件和踩坑总结。
-                </p>
-            </article>
+                    <p class="text-sm text-black/60 dark:text-white/60 leading-6 mb-4">{project.description}</p>
+
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        {project.tags.map((tag) => (
+                            <span class="px-3 py-1 rounded-lg text-sm bg-[var(--btn-plain-bg-hover)] text-[var(--primary)]">{tag}</span>
+                        ))}
+                    </div>
+
+                    <ul class="space-y-2 text-sm text-black/65 dark:text-white/65">
+                        {project.highlights.map((highlight) => (
+                            <li class="flex gap-2">
+                                <span class="text-[var(--primary)] font-bold">#</span>
+                                <span>{highlight}</span>
+                            </li>
+                        ))}
+                    </ul>
+                </article>
+            ))}
+        </div>
+    </section>
+
+    <section class="card-base px-9 py-8">
+        <div class="mb-6">
+            <div class="text-sm font-bold text-[var(--primary)] mb-2">Backlog</div>
+            <h2 class="text-2xl font-bold">待整理项目</h2>
+        </div>
+
+        <div class="grid gap-4 md:grid-cols-2">
+            {otherProjects.map((project) => (
+                <article class="rounded-2xl border border-black/10 dark:border-white/10 p-5 bg-black/[0.02] dark:bg-white/[0.03]">
+                    <div class="text-xs font-bold text-[var(--primary)] mb-2">{project.status}</div>
+                    <h3 class="text-xl font-bold mb-2">{project.title}</h3>
+                    <p class="text-sm text-black/60 dark:text-white/60 leading-6 mb-4">{project.summary}</p>
+                    <div class="flex flex-wrap gap-2">
+                        {project.tags.map((tag) => (
+                            <span class="px-3 py-1 rounded-lg text-sm bg-[var(--btn-plain-bg-hover)] text-[var(--primary)]">{tag}</span>
+                        ))}
+                    </div>
+                </article>
+            ))}
         </div>
     </section>
 </MainGridLayout>
