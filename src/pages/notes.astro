@@ -1,0 +1,35 @@
+---
+import MainGridLayout from "@layouts/MainGridLayout.astro";
+---
+
+<MainGridLayout title="笔记" description="学习笔记、配置备忘和短内容。">
+    <section class="card-base px-9 py-8">
+        <div class="mb-8">
+            <div class="text-sm font-bold text-[var(--primary)] mb-2">Notes</div>
+            <h1 class="text-3xl font-bold mb-3">笔记</h1>
+            <p class="text-black/65 dark:text-white/65 leading-7">
+                笔记区用于保存短内容：命令备忘、配置片段、阅读摘记、课程记录和临时想法。
+            </p>
+        </div>
+
+        <div class="space-y-4">
+            <div class="rounded-2xl border border-black/10 dark:border-white/10 p-5 bg-black/[0.02] dark:bg-white/[0.03]">
+                <h2 class="text-xl font-bold mb-2">计划中的笔记分类</h2>
+                <div class="flex flex-wrap gap-2 text-sm">
+                    <span class="px-3 py-1 rounded-lg bg-[var(--btn-plain-bg-hover)]">Linux</span>
+                    <span class="px-3 py-1 rounded-lg bg-[var(--btn-plain-bg-hover)]">前端</span>
+                    <span class="px-3 py-1 rounded-lg bg-[var(--btn-plain-bg-hover)]">部署</span>
+                    <span class="px-3 py-1 rounded-lg bg-[var(--btn-plain-bg-hover)]">数据库</span>
+                    <span class="px-3 py-1 rounded-lg bg-[var(--btn-plain-bg-hover)]">AI 工具</span>
+                </div>
+            </div>
+
+            <div class="rounded-2xl border border-black/10 dark:border-white/10 p-5 bg-black/[0.02] dark:bg-white/[0.03]">
+                <h2 class="text-xl font-bold mb-2">后续结构</h2>
+                <p class="text-sm text-black/60 dark:text-white/60 leading-6">
+                    可以把短笔记继续作为文章发布，并通过分类或标签聚合到这里。
+                </p>
+            </div>
+        </div>
+    </section>
+</MainGridLayout>

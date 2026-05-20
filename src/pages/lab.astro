@@ -1,0 +1,38 @@
+---
+import MainGridLayout from "@layouts/MainGridLayout.astro";
+---
+
+<MainGridLayout title="实验室" description="动画、音乐、视频和交互页面实验。">
+    <section class="card-base px-9 py-8">
+        <div class="mb-8">
+            <div class="text-sm font-bold text-[var(--primary)] mb-2">Lab</div>
+            <h1 class="text-3xl font-bold mb-3">实验室</h1>
+            <p class="text-black/65 dark:text-white/65 leading-7">
+                这里用来放更自由的 Web 实验：动画、音乐播放器、视频展示、可交互 demo 和小型可视化。
+            </p>
+        </div>
+
+        <div class="grid gap-4 md:grid-cols-3">
+            <article class="rounded-2xl border border-black/10 dark:border-white/10 p-5 bg-black/[0.02] dark:bg-white/[0.03]">
+                <h2 class="text-lg font-bold mb-2">动画</h2>
+                <p class="text-sm text-black/60 dark:text-white/60 leading-6">
+                    页面转场、滚动动画、Canvas 或 Three.js 小实验。
+                </p>
+            </article>
+
+            <article class="rounded-2xl border border-black/10 dark:border-white/10 p-5 bg-black/[0.02] dark:bg-white/[0.03]">
+                <h2 class="text-lg font-bold mb-2">音乐</h2>
+                <p class="text-sm text-black/60 dark:text-white/60 leading-6">
+                    自定义播放器、歌单、音频可视化和背景音乐控制。
+                </p>
+            </article>
+
+            <article class="rounded-2xl border border-black/10 dark:border-white/10 p-5 bg-black/[0.02] dark:bg-white/[0.03]">
+                <h2 class="text-lg font-bold mb-2">视频</h2>
+                <p class="text-sm text-black/60 dark:text-white/60 leading-6">
+                    项目演示、课程展示、嵌入播放器或本地视频资源。
+                </p>
+            </article>
+        </div>
+    </section>
+</MainGridLayout>

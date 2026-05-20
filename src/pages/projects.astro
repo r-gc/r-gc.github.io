@@ -1,0 +1,33 @@
+---
+import MainGridLayout from "@layouts/MainGridLayout.astro";
+---
+
+<MainGridLayout title="项目" description="项目展示、复盘和技术实践。">
+    <section class="card-base px-9 py-8">
+        <div class="mb-8">
+            <div class="text-sm font-bold text-[var(--primary)] mb-2">Projects</div>
+            <h1 class="text-3xl font-bold mb-3">项目</h1>
+            <p class="text-black/65 dark:text-white/65 leading-7">
+                这里会整理我做过的系统、工具、课程项目和开源实践。后续每个项目都会补充技术栈、截图、代码链接和复盘记录。
+            </p>
+        </div>
+
+        <div class="grid gap-4 md:grid-cols-2">
+            <article class="rounded-2xl border border-black/10 dark:border-white/10 p-5 bg-black/[0.02] dark:bg-white/[0.03]">
+                <div class="text-xs font-bold text-[var(--primary)] mb-2">Web System</div>
+                <h2 class="text-xl font-bold mb-2">待补充项目</h2>
+                <p class="text-sm text-black/60 dark:text-white/60 leading-6">
+                    可以放毕业设计、管理系统、全栈项目、部署实践或自动化工具。
+                </p>
+            </article>
+
+            <article class="rounded-2xl border border-black/10 dark:border-white/10 p-5 bg-black/[0.02] dark:bg-white/[0.03]">
+                <div class="text-xs font-bold text-[var(--primary)] mb-2">Open Source</div>
+                <h2 class="text-xl font-bold mb-2">开源与工具</h2>
+                <p class="text-sm text-black/60 dark:text-white/60 leading-6">
+                    这里适合记录脚本、小工具、组件库、插件和踩坑总结。
+                </p>
+            </article>
+        </div>
+    </section>
+</MainGridLayout>
