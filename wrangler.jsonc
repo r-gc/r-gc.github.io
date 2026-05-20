@@ -1,0 +1,10 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "r-gc-github-io",
+  "compatibility_date": "2026-05-20",
+  "assets": {
+    "directory": "./dist/",
+    "not_found_handling": "404-page",
+    "html_handling": "auto-trailing-slash"
+  }
+}
