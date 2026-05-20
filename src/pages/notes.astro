@@ -1,35 +1,134 @@
 ---
 import MainGridLayout from "@layouts/MainGridLayout.astro";
+import { getSortedPosts } from "../utils/content-utils";
+import { getPostUrlBySlug, getTagUrl } from "../utils/url-utils";
+
+const allPosts = await getSortedPosts();
+const notePosts = allPosts.filter((post) => post.data.category === "笔记");
+const latestNotes = notePosts.slice(0, 6);
+
+const noteTypes = [
+	{
+		name: "速查",
+		description: "命令、参数、步骤和常用片段。",
+		tags: ["速查", "命令", "Cheatsheet"],
+	},
+	{
+		name: "排错",
+		description: "报错原因、排查路径和最后的修复方法。",
+		tags: ["排错", "Debug", "Troubleshooting"],
+	},
+	{
+		name: "配置",
+		description: "环境、工具链、部署和服务配置。",
+		tags: ["配置", "环境配置", "部署"],
+	},
+	{
+		name: "学习",
+		description: "读文档、看源码、学框架时留下的理解。",
+		tags: ["学习", "阅读", "源码"],
+	},
+	{
+		name: "项目笔记",
+		description: "项目推进过程里的设计、接口、测试和取舍。",
+		tags: ["项目笔记", "项目", "Frappe", "ERPNext"],
+	},
+	{
+		name: "阅读摘记",
+		description: "文章、文档、书和资料里值得回看的内容。",
+		tags: ["阅读摘记", "阅读", "文档"],
+	},
+	{
+		name: "实验记录",
+		description: "动画、音乐、视频和交互效果的试验过程。",
+		tags: ["实验记录", "实验", "动画", "音乐", "视频"],
+	},
+];
+
+const noteTypeSummaries = noteTypes.map((type) => ({
+	...type,
+	count: notePosts.filter((post) =>
+		post.data.tags.some((tag) => type.tags.includes(tag)),
+	).length,
+}));
+
+const formatDate = (date: Date) =>
+	date.toLocaleDateString("zh-CN", {
+		year: "numeric",
+		month: "2-digit",
+		day: "2-digit",
+	});
 ---
 
 <MainGridLayout title="笔记" description="一些短的、杂的、但以后可能会救命的记录。">
-    <section class="card-base px-9 py-8">
+    <section class="card-base px-9 py-8 mb-4">
         <div class="mb-8">
             <div class="text-sm font-bold text-[var(--primary)] mb-2">Notes</div>
             <h1 class="text-3xl font-bold mb-3">笔记</h1>
             <p class="text-black/65 dark:text-white/65 leading-7">
-                有些东西不一定值得写成长文章，但又不想下次再查一遍。这里就用来放命令、配置、排错记录、阅读摘记和一些半成型的想法。
+                这里是这个博客的主入口。长文章可以慢慢写，短记录也可以先放下：命令、配置、排错、阅读摘记、项目推进时的判断，以及那些下次一定会忘的细节。
             </p>
         </div>
 
-        <div class="space-y-4">
-            <div class="rounded-2xl border border-black/10 dark:border-white/10 p-5 bg-black/[0.02] dark:bg-white/[0.03]">
-                <h2 class="text-xl font-bold mb-2">可能会常出现的主题</h2>
-                <div class="flex flex-wrap gap-2 text-sm">
-                    <span class="px-3 py-1 rounded-lg bg-[var(--btn-plain-bg-hover)]">Linux</span>
-                    <span class="px-3 py-1 rounded-lg bg-[var(--btn-plain-bg-hover)]">前端</span>
-                    <span class="px-3 py-1 rounded-lg bg-[var(--btn-plain-bg-hover)]">部署</span>
-                    <span class="px-3 py-1 rounded-lg bg-[var(--btn-plain-bg-hover)]">数据库</span>
-                    <span class="px-3 py-1 rounded-lg bg-[var(--btn-plain-bg-hover)]">AI 工具</span>
-                </div>
+        <div class="grid gap-3 sm:grid-cols-3 mb-8">
+            <div class="rounded-xl bg-black/[0.03] dark:bg-white/[0.04] p-4">
+                <div class="text-2xl font-bold">{notePosts.length}</div>
+                <div class="text-sm text-black/55 dark:text-white/55">已整理笔记</div>
             </div>
-
-            <div class="rounded-2xl border border-black/10 dark:border-white/10 p-5 bg-black/[0.02] dark:bg-white/[0.03]">
-                <h2 class="text-xl font-bold mb-2">先不急着分类太细</h2>
-                <p class="text-sm text-black/60 dark:text-white/60 leading-6">
-                    等笔记多起来之后，再按标签和系列慢慢整理。现在更重要的是先把有用的东西写下来。
-                </p>
+            <div class="rounded-xl bg-black/[0.03] dark:bg-white/[0.04] p-4">
+                <div class="text-2xl font-bold">{noteTypes.length}</div>
+                <div class="text-sm text-black/55 dark:text-white/55">笔记类型</div>
+            </div>
+            <div class="rounded-xl bg-black/[0.03] dark:bg-white/[0.04] p-4">
+                <div class="text-2xl font-bold">Markdown</div>
+                <div class="text-sm text-black/55 dark:text-white/55">主要写作格式</div>
             </div>
         </div>
+
+        <div class="grid gap-3 md:grid-cols-2">
+            {noteTypeSummaries.map((type) => (
+                <a href={getTagUrl(type.name)} class="group rounded-xl border border-black/10 dark:border-white/10 p-4 transition hover:border-[var(--primary)]/50 hover:bg-black/[0.02] dark:hover:bg-white/[0.03]">
+                    <div class="flex items-center justify-between gap-3 mb-2">
+                        <h2 class="text-lg font-bold group-hover:text-[var(--primary)] transition">{type.name}</h2>
+                        <span class="text-sm text-[var(--primary)] bg-[var(--btn-plain-bg-hover)] rounded-lg px-2 py-1">{type.count}</span>
+                    </div>
+                    <p class="text-sm text-black/60 dark:text-white/60 leading-6">{type.description}</p>
+                </a>
+            ))}
+        </div>
+    </section>
+
+    <section class="card-base px-9 py-8">
+        <div class="mb-6">
+            <div class="text-sm font-bold text-[var(--primary)] mb-2">Latest</div>
+            <h2 class="text-2xl font-bold">最近笔记</h2>
+        </div>
+
+        {latestNotes.length > 0 ? (
+            <div class="space-y-3">
+                {latestNotes.map((post) => (
+                    <article class="rounded-xl border border-black/10 dark:border-white/10 p-4 bg-black/[0.02] dark:bg-white/[0.03]">
+                        <div class="flex flex-col gap-2 md:flex-row md:items-start md:justify-between">
+                            <div>
+                                <a href={getPostUrlBySlug(post.slug)} class="text-lg font-bold hover:text-[var(--primary)] transition">
+                                    {post.data.title}
+                                </a>
+                                <p class="text-sm text-black/60 dark:text-white/60 leading-6 mt-2">{post.data.description}</p>
+                            </div>
+                            <time class="text-sm text-black/40 dark:text-white/40 shrink-0">{formatDate(post.data.published)}</time>
+                        </div>
+                        <div class="flex flex-wrap gap-2 mt-3">
+                            {post.data.tags.slice(0, 5).map((tag) => (
+                                <a href={getTagUrl(tag)} class="px-2.5 py-1 rounded-lg text-xs bg-[var(--btn-plain-bg-hover)] text-[var(--primary)]">{tag}</a>
+                            ))}
+                        </div>
+                    </article>
+                ))}
+            </div>
+        ) : (
+            <p class="text-black/60 dark:text-white/60 leading-7">
+                还没有正式笔记。之后只要文章 frontmatter 写上 <code>category: 笔记</code>，就会自动出现在这里。
+            </p>
+        )}
     </section>
 </MainGridLayout>
