@@ -25,6 +25,19 @@ export const siteConfig: SiteConfig = {
 			url: "", // (Optional) URL link to the original artwork or artist's page
 		},
 	},
+	background: {
+		enable: true,
+		src: "/images/meteor-shower-background.png", // Relative to the /public directory. Replace this file to change the site background.
+		height: "clamp(24rem, 42vh, 36rem)",
+		position: "center",
+		opacity: 1,
+		blur: "0px",
+		scale: 1.02,
+		overlay: {
+			light: "transparent",
+			dark: "transparent",
+		},
+	},
 	toc: {
 		enable: true, // Display the table of contents on the right side of the post
 		depth: 2, // Maximum heading depth to show in the table, from 1 to 3

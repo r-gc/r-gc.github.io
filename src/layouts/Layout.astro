@@ -70,6 +70,21 @@ const bannerOffsetByPosition = {
 };
 const bannerOffset =
 	bannerOffsetByPosition[siteConfig.banner.position || "center"];
+const backgroundConfig = siteConfig.background;
+const backgroundSrc = backgroundConfig.src.startsWith("http")
+	? backgroundConfig.src
+	: url(backgroundConfig.src);
+const hasSiteBackground = backgroundConfig.enable && backgroundConfig.src.trim() !== "";
+const siteBackgroundImage = hasSiteBackground ? `url("${backgroundSrc}")` : "none";
+const siteBackgroundHeight = backgroundConfig.height || "24rem";
+const siteBackgroundPosition = backgroundConfig.position || "center";
+const siteBackgroundOpacity = `${backgroundConfig.opacity ?? 0.16}`;
+const siteBackgroundBlur = backgroundConfig.blur || "0px";
+const siteBackgroundScale = `${backgroundConfig.scale ?? 1}`;
+const siteBackgroundOverlayLight =
+	backgroundConfig.overlay?.light || "rgba(255, 255, 255, 0.72)";
+const siteBackgroundOverlayDark =
+	backgroundConfig.overlay?.dark || "rgba(0, 0, 0, 0.72)";
 ---
 
 <!DOCTYPE html>
@@ -148,7 +163,7 @@ const bannerOffset =
 		<link rel="alternate" type="application/rss+xml" title={profileConfig.name} href={`${Astro.site}rss.xml`}/>
 
 	</head>
-	<body class=" min-h-screen transition " class:list={[{"lg:is-home": isHomePage, "enable-banner": enableBanner}]}
+	<body class=" min-h-screen transition " class:list={[{"lg:is-home": isHomePage, "enable-banner": enableBanner, "has-site-background": hasSiteBackground}]}
 		  data-overlayscrollbars-initialize
 	>
 		<ConfigCarrier></ConfigCarrier>
@@ -163,9 +178,49 @@ const bannerOffset =
 	bannerOffset,
 	'banner-height-home': `${BANNER_HEIGHT_HOME}vh`,
 	'banner-height': `${BANNER_HEIGHT}vh`,
+	'site-bg-image': siteBackgroundImage,
+	'site-bg-height': siteBackgroundHeight,
+	'site-bg-position': siteBackgroundPosition,
+	'site-bg-opacity': siteBackgroundOpacity,
+	'site-bg-blur': siteBackgroundBlur,
+	'site-bg-scale': siteBackgroundScale,
+	'site-bg-overlay-light': siteBackgroundOverlayLight,
+	'site-bg-overlay-dark': siteBackgroundOverlayDark,
 }}>
 @tailwind components;
 @layer components {
+	body.has-site-background {
+		isolation: isolate;
+		background: transparent;
+		position: relative;
+	}
+	body.has-site-background::before,
+	body.has-site-background::after {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: var(--site-bg-height);
+		pointer-events: none;
+	}
+	body.has-site-background::before {
+		z-index: -2;
+		background-image: var(--site-bg-image);
+		background-position: var(--site-bg-position);
+		background-repeat: no-repeat;
+		background-size: cover;
+		opacity: var(--site-bg-opacity);
+		filter: blur(var(--site-bg-blur));
+		transform: scale(var(--site-bg-scale));
+	}
+	body.has-site-background::after {
+		z-index: -1;
+		background: var(--site-bg-overlay-light);
+	}
+	:root.dark body.has-site-background::after {
+		background: var(--site-bg-overlay-dark);
+	}
 	.enable-banner.is-home #banner-wrapper {
 		@apply h-[var(--banner-height-home)] translate-y-[var(--banner-height-extend)]
 	}
