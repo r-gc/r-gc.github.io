@@ -10,6 +10,7 @@ export type Project = {
 	tags: string[];
 	repoUrl?: string;
 	demoUrl?: string;
+	articleUrl?: string;
 	highlights: string[];
 };
 
@@ -39,6 +40,7 @@ export const projects: Project[] = [
 		featured: true,
 		tags: ["Frappe", "ERPNext", "Docker", "React Native", "API"],
 		repoUrl: "https://github.com/rgc318/frappe_docker",
+		articleUrl: "/posts/project-frappe-erpnext-myapp/",
 		highlights: [
 			"在 Docker 化 Frappe 环境中开发自定义业务应用",
 			"包含 apps/myapp、frontend/myapp-web、frontend/myapp-mobile 等模块",
@@ -56,6 +58,7 @@ export const projects: Project[] = [
 		tags: ["Astro", "Fuwari", "Cloudflare", "Blog"],
 		repoUrl: "https://github.com/r-gc/r-gc.github.io",
 		demoUrl: "https://blog.rgcdev.top/",
+		articleUrl: "/posts/project-rgc-blog-architecture/",
 		highlights: [
 			"使用 Astro 静态生成和 Fuwari 博客主题",
 			"部署到 Cloudflare Workers，并保留 GitHub Pages 作为备用",
@@ -69,12 +72,13 @@ export const projects: Project[] = [
 		description:
 			"用于论文、答辩和系统实现整理的安全方向项目。后续可补充架构图、ER 图、核心功能、部署方式和演示截图。",
 		status: "整理中",
-		featured: false,
+		featured: true,
 		tags: ["Zero Trust", "Security", "Architecture"],
+		articleUrl: "/posts/project-zerotrust-access-control/",
 		highlights: [
-			"适合沉淀论文相关系统设计与实现过程",
-			"后续可补充 ER 图、答辩材料和部署文档",
-			"可以整理为系统复盘和安全架构文章",
+			"包含 Flask 后端、Vue 前端、MySQL、SDN 控制器和 Docker Compose 编排",
+			"覆盖用户、资源、策略、审计、监控与 SDN 流表下发演示",
+			"提供接口级验收测试，适合答辩和项目复盘展示",
 		],
 	},
 	{

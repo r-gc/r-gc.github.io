@@ -32,6 +32,9 @@ const otherProjects = projects.filter((project) => !project.featured);
                             {project.demoUrl && (
                                 <a class="btn-plain rounded-lg px-3 py-2 text-sm font-bold" href={project.demoUrl} target="_blank">演示</a>
                             )}
+                            {project.articleUrl && (
+                                <a class="btn-plain rounded-lg px-3 py-2 text-sm font-bold" href={project.articleUrl}>文章</a>
+                            )}
                         </div>
                     </div>
 
