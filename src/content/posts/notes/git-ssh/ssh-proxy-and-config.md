@@ -47,7 +47,7 @@ Host github.com
 ssh -T git@github.com
 ```
 
-## SSH 通过 SOCKS5 代理
+## SSH 通过 SOCKS5 代理（本地代理环境推荐）
 
 ```ssh-config
 Host github.com
