@@ -27,7 +27,7 @@ profileConfig.avatar
 当前值：
 
 ```ts
-avatar: "assets/images/demo-avatar.png"
+avatar: "assets/images/profile-avatar.png"
 ```
 
 图片放在：
